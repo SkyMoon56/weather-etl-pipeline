@@ -13,26 +13,26 @@ A production-style **data engineering portfolio project** demonstrating a full E
 
 ```
 Open-Meteo API (free, no key)
-        │
-        ▼
-  [ Extract ]  pipeline/extract.py
+ │
+ ▼
+[ Extract ]  pipeline/extract.py
   Fetches hourly weather for 5 cities
-        │
-        ▼
-  [ Transform ]  pipeline/transform.py
+ │
+ ▼
+[ Transform ]  pipeline/transform.py
   Cleans nulls, converts units, adds derived columns
   (heat index, wind chill, weather category)
-        │
-        ▼
-  [ Load ]  pipeline/load.py
+ │
+ ▼
+[ Load ]  pipeline/load.py
   Upserts into SQLite (weather.db)
-        │
-        ▼
-  [ Analyze ]  pipeline/analyze.py
+ │
+ ▼
+[ Analyze ]  pipeline/analyze.py
   Generates summary stats → reports/daily_summary.md
-        │
-        ▼
-  GitHub Actions (runs daily at 08:00 UTC)
+ │
+ ▼
+GitHub Actions (runs daily at 08:00 UTC)
   Commits updated DB + report back to repo
 ```
 
@@ -66,134 +66,140 @@ weather-etl-pipeline/
 ## 🚀 Quick Start
 
 ### Prerequisites
+
 - Python 3.9+
-- - No API keys needed — Open-Meteo is completely free
- 
-  - ### Installation
- 
-  - ```bash
-    git clone https://github.com/SkyMoon56/weather-etl-pipeline.git
-    cd weather-etl-pipeline
-    pip install -r requirements.txt
-    ```
+- No API keys needed — Open-Meteo is completely free
 
-    ### Run the full pipeline
+### Installation
 
-    ```bash
-    python pipeline/run_pipeline.py
-    ```
+```bash
+git clone https://github.com/SkyMoon56/weather-etl-pipeline.git
+cd weather-etl-pipeline
+pip install -r requirements.txt
+```
 
-    This will:
-    1. Fetch the last 7 days of hourly weather data for 5 cities
-    2. 2. Transform and clean the data
-       3. 3. Load it into `weather.db` (SQLite)
-          4. 4. Generate `reports/daily_summary.md`
-            
-             5. ### Initialize the database (first time only)
-            
-             6. ```bash
-                python schema/init_db.py
-                ```
+### Run the full pipeline
 
-                ---
+```bash
+python pipeline/run_pipeline.py
+```
 
-                ## 📊 Data
+This will:
+1. Fetch the last 7 days of hourly weather data for 5 cities
+2. Transform and clean the data
+3. Load it into `weather.db` (SQLite)
+4. Generate `reports/daily_summary.md`
 
-                ### Source
-                - **API**: [Open-Meteo](https://open-meteo.com/) — Free, no sign-up, no key required
-                - - **Frequency**: Hourly updates, pipeline runs daily
-                  - - **Cities tracked**:
-                   
-                    - | City | Latitude | Longitude |
-                    - |------|----------|-----------|
-                    - | New York, USA | 40.71 | -74.01 |
-                    - | London, UK | 51.51 | -0.13 |
-                    - | Tokyo, Japan | 35.68 | 139.69 |
-                    - | Sydney, Australia | -33.87 | 151.21 |
-                    - | Lagos, Nigeria | 6.52 | 3.38 |
-                   
-                    - ### Metrics collected
-                    - - Temperature (°C and °F)
-                      - - Apparent temperature (feels like)
-                        - - Relative humidity (%)
-                          - - Wind speed (km/h) and direction (°)
-                            - - Precipitation (mm)
-                              - - Weather code (WMO standard)
-                                - - Derived: Heat Index, Wind Chill, Weather Category
-                                 
-                                  - ---
+### Initialize the database (first time only)
 
-                                  ## 🗄️ Database Schema
+```bash
+python schema/init_db.py
+```
 
-                                  ### `weather_observations` table
-                                  | Column | Type | Description |
-                                  |--------|------|-------------|
-                                  | id | INTEGER PK | Auto-increment |
-                                  | city | TEXT | City name |
-                                  | latitude | REAL | Location latitude |
-                                  | longitude | REAL | Location longitude |
-                                  | observed_at | TEXT | ISO 8601 timestamp (UTC) |
-                                  | temp_c | REAL | Temperature in Celsius |
-                                  | temp_f | REAL | Temperature in Fahrenheit |
-                                  | feels_like_c | REAL | Apparent temperature |
-                                  | humidity_pct | REAL | Relative humidity % |
-                                  | wind_speed_kmh | REAL | Wind speed |
-                                  | wind_direction_deg | REAL | Wind direction in degrees |
-                                  | precipitation_mm | REAL | Precipitation |
-                                  | weather_code | INTEGER | WMO weather code |
-                                  | weather_category | TEXT | Derived: Clear/Cloudy/Rainy/Snowy/Stormy |
-                                  | heat_index_c | REAL | Derived heat index |
-                                  | wind_chill_c | REAL | Derived wind chill |
-                                  | ingested_at | TEXT | Pipeline run timestamp |
+---
 
-                                  ### `pipeline_runs` table
-                                  Tracks every pipeline execution with row counts and status.
+## 📊 Data
 
-                                  ---
+### Source
 
-                                  ## ⚙️ GitHub Actions
+- **API**: [Open-Meteo](https://open-meteo.com/) — Free, no sign-up, no key required
+- **Frequency**: Hourly updates, pipeline runs daily
+- **Cities tracked**:
 
-                                  The pipeline runs automatically every day at **08:00 UTC** via `.github/workflows/daily_pipeline.yml`.
+| City | Latitude | Longitude |
+|------|----------|-----------| 
+| New York, USA | 40.71 | -74.01 |
+| London, UK | 51.51 | -0.13 |
+| Tokyo, Japan | 35.68 | 139.69 |
+| Sydney, Australia | -33.87 | 151.21 |
+| Lagos, Nigeria | 6.52 | 3.38 |
 
-                                  It:
-                                  1. Runs the full ETL pipeline
-                                  2. 2. Commits the updated `weather.db` and `reports/daily_summary.md` back to the repo
-                                     3. 3. On failure, the run is logged and visible in the Actions tab
-                                       
-                                        4. ---
-                                       
-                                        5. ## 🧪 Tests
-                                       
-                                        6. ```bash
-                                           pip install pytest
-                                           pytest tests/
-                                           ```
+### Metrics collected
 
-                                           ---
+- Temperature (°C and °F)
+- Apparent temperature (feels like)
+- Relative humidity (%)
+- Wind speed (km/h) and direction (°)
+- Precipitation (mm)
+- Weather code (WMO standard)
+- Derived: Heat Index, Wind Chill, Weather Category
 
-                                           ## 🛠️ Tech Stack
+---
 
-                                           | Tool | Purpose | Cost |
-                                           |------|---------|------|
-                                           | Open-Meteo API | Weather data source | Free, no key |
-                                           | Python 3.11 | ETL logic | Free |
-                                           | SQLite | Data warehouse | Free (built-in) |
-                                           | pandas | Data transformation | Free |
-                                           | requests | HTTP client | Free |
-                                           | GitHub Actions | Orchestration/scheduler | Free (2,000 min/month) |
+## 🗄️ Database Schema
 
-                                           ---
+### `weather_observations` table
 
-                                           ## 📈 Sample Analytics Output
+| Column | Type | Description |
+|--------|------|-------------|
+| id | INTEGER PK | Auto-increment |
+| city | TEXT | City name |
+| latitude | REAL | Location latitude |
+| longitude | REAL | Location longitude |
+| observed_at | TEXT | ISO 8601 timestamp (UTC) |
+| temp_c | REAL | Temperature in Celsius |
+| temp_f | REAL | Temperature in Fahrenheit |
+| feels_like_c | REAL | Apparent temperature |
+| humidity_pct | REAL | Relative humidity % |
+| wind_speed_kmh | REAL | Wind speed |
+| wind_direction_deg | REAL | Wind direction in degrees |
+| precipitation_mm | REAL | Precipitation |
+| weather_code | INTEGER | WMO weather code |
+| weather_category | TEXT | Derived: Clear/Cloudy/Rainy/Snowy/Stormy |
+| heat_index_c | REAL | Derived heat index |
+| wind_chill_c | REAL | Derived wind chill |
+| ingested_at | TEXT | Pipeline run timestamp |
 
-                                           The daily report (`reports/daily_summary.md`) includes:
-                                           - Hottest and coldest city of the day
-                                           - - Average temperature per city (7-day rolling)
-                                             - - Total precipitation per city
-                                               - - Pipeline run history and row counts
-                                                
-                                                 - ---
+### `pipeline_runs` table
 
-                                                 ## 📝 License
+Tracks every pipeline execution with row counts and status.
 
-                                                 MIT — free to use, fork, and build on.
+---
+
+## ⚙️ GitHub Actions
+
+The pipeline runs automatically every day at **08:00 UTC** via `.github/workflows/daily_pipeline.yml`.
+
+It:
+1. Runs the full ETL pipeline
+2. Commits the updated `weather.db` and `reports/daily_summary.md` back to the repo
+3. On failure, the run is logged and visible in the Actions tab
+
+---
+
+## 🧪 Tests
+
+```bash
+pip install pytest
+pytest tests/
+```
+
+---
+
+## 🛠️ Tech Stack
+
+| Tool | Purpose | Cost |
+|------|---------|------|
+| Open-Meteo API | Weather data source | Free, no key |
+| Python 3.11 | ETL logic | Free |
+| SQLite | Data warehouse | Free (built-in) |
+| pandas | Data transformation | Free |
+| requests | HTTP client | Free |
+| GitHub Actions | Orchestration/scheduler | Free (2,000 min/month) |
+
+---
+
+## 📈 Sample Analytics Output
+
+The daily report (`reports/daily_summary.md`) includes:
+
+- Hottest and coldest city of the day
+- Average temperature per city (7-day rolling)
+- Total precipitation per city
+- Pipeline run history and row counts
+
+---
+
+## 📝 License
+
+MIT — free to use, fork, and build on.
