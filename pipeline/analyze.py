@@ -32,23 +32,23 @@ def generate_report(db_path: str = DB_PATH, report_path: str = REPORT_PATH) -> s
     cities     = query(conn, "SELECT DISTINCT city FROM weather_observations ORDER BY city")
 
     hottest = query(conn, """
-        SELECT city, MAX(temp_c) AS max_temp_c, observed_at
+        SELECT city, MAX(temp_f) AS max_temp_f, observed_at
         FROM weather_observations
         WHERE observed_at >= ?
-        ORDER BY max_temp_c DESC LIMIT 1
+        ORDER BY max_temp_f DESC LIMIT 1
     """, (cutoff,))
 
     coldest = query(conn, """
-        SELECT city, MIN(temp_c) AS min_temp_c, observed_at
+        SELECT city, MIN(temp_f) AS min_temp_f, observed_at
         FROM weather_observations
         WHERE observed_at >= ?
-        ORDER BY min_temp_c ASC LIMIT 1
+        ORDER BY min_temp_f ASC LIMIT 1
     """, (cutoff,))
 
     city_avg = query(conn, """
         SELECT
             city,
-            ROUND(AVG(temp_c), 1)          AS avg_temp_c,
+            ROUND(AVG(temp_f), 1)          AS avg_temp_f,
             ROUND(AVG(humidity_pct), 1)    AS avg_humidity,
             ROUND(SUM(precipitation_mm), 1) AS total_precip_mm,
             COUNT(*)                        AS obs_count
@@ -83,10 +83,10 @@ def generate_report(db_path: str = DB_PATH, report_path: str = REPORT_PATH) -> s
 
     if hottest:
         h = hottest[0]
-        lines.append(f"- **Hottest:** {h['city']} — {h['max_temp_c']}°C at {h['observed_at'][:16]} UTC")
+        lines.append(f"- **Hottest:** {h['city']} — {h['max_temp_f']}°F at {h['observed_at'][:16]} UTC")
     if coldest:
         c = coldest[0]
-        lines.append(f"- **Coldest:** {c['city']} — {c['min_temp_c']}°C at {c['observed_at'][:16]} UTC")
+        lines.append(f"- **Coldest:** {c['city']} — {c['min_temp_f']}°F at {c['observed_at'][:16]} UTC")
 
     lines += [
         "",
@@ -94,12 +94,12 @@ def generate_report(db_path: str = DB_PATH, report_path: str = REPORT_PATH) -> s
         "",
         "## 🏙️ City Averages (Last 7 Days)",
         "",
-        "| City | Avg Temp (°C) | Avg Humidity (%) | Total Precip (mm) | Observations |",
+        "| City | Avg Temp (°F) | Avg Humidity (%) | Total Precip (mm) | Observations |",
         "|------|:---:|:---:|:---:|:---:|",
     ]
     for row in city_avg:
         lines.append(
-            f"| {row['city']} | {row['avg_temp_c']} | {row['avg_humidity']} "
+            f"| {row['city']} | {row['avg_temp_f']} | {row['avg_humidity']} "
             f"| {row['total_precip_mm']} | {row['obs_count']} |"
         )
 
