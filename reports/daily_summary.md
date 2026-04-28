@@ -1,8 +1,8 @@
 # 📊 Weather Pipeline — Daily Summary
 
-_Generated: 2026-04-27 10:23 UTC_
+_Generated: 2026-04-28 10:22 UTC_
 
-**Total observations in database:** 7,200
+**Total observations in database:** 7,320
 **Cities tracked:** Lagos, London, New York, Sydney, Tokyo
 
 ---
@@ -10,7 +10,7 @@ _Generated: 2026-04-27 10:23 UTC_
 ## 🌡️ Last 7 Days Highlights
 
 - **Hottest:** Lagos — 93.74°F at 2026-04-22T13:00 UTC
-- **Coldest:** New York — 30.2°F at 2026-04-21T10:00 UTC
+- **Coldest:** New York — 31.82°F at 2026-04-21T11:00 UTC
 
 ---
 
@@ -18,11 +18,11 @@ _Generated: 2026-04-27 10:23 UTC_
 
 | City | Avg Temp (°F) | Avg Humidity (%) | Total Precip (mm) | Observations |
 |------|:---:|:---:|:---:|:---:|
-| Lagos | 84.0 | 80.2 | 45.6 | 181 |
-| London | 54.1 | 57.9 | 2.4 | 181 |
-| New York | 49.6 | 62.5 | 23.4 | 181 |
-| Sydney | 62.3 | 72.6 | 0.0 | 181 |
-| Tokyo | 58.4 | 71.7 | 62.8 | 181 |
+| Lagos | 83.7 | 80.4 | 57.8 | 181 |
+| London | 54.5 | 57.9 | 2.8 | 181 |
+| New York | 51.0 | 64.1 | 23.7 | 181 |
+| Sydney | 62.7 | 73.3 | 0.0 | 181 |
+| Tokyo | 58.6 | 72.5 | 62.8 | 181 |
 
 ---
 
@@ -30,6 +30,7 @@ _Generated: 2026-04-27 10:23 UTC_
 
 | Run At (UTC) | Status | Rows Loaded | Duration (s) |
 |---|:---:|:---:|:---:|
+| 2026-04-27T10:23:38 | ✅ success | 120 | 2.3 |
 | 2026-04-26T09:08:41 | ✅ success | 120 | 2.1 |
 | 2026-04-25T09:02:02 | ✅ success | 120 | 2.1 |
 | 2026-04-24T09:50:10 | ✅ success | 120 | 6.3 |
@@ -39,4 +40,3 @@ _Generated: 2026-04-27 10:23 UTC_
 | 2026-04-20T10:04:34 | ✅ success | 120 | 2.0 |
 | 2026-04-19T09:01:27 | ✅ success | 120 | 3.5 |
 | 2026-04-18T08:59:03 | ✅ success | 120 | 2.4 |
-| 2026-04-17T09:25:37 | ✅ success | 120 | 2.6 |
