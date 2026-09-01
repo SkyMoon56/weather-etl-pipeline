@@ -1,8 +1,8 @@
 # 📊 Weather Pipeline — Daily Summary
 
-_Generated: 2026-08-31 16:02 UTC_
+_Generated: 2026-09-01 13:22 UTC_
 
-**Total observations in database:** 22,320
+**Total observations in database:** 22,440
 **Cities tracked:** Lagos, London, New York, Sydney, Tokyo
 
 ---
@@ -18,11 +18,11 @@ _Generated: 2026-08-31 16:02 UTC_
 
 | City | Avg Temp (°F) | Avg Humidity (%) | Total Precip (mm) | Observations |
 |------|:---:|:---:|:---:|:---:|
-| Lagos | 79.2 | 86.2 | 54.8 | 175 |
-| London | 67.3 | 71.3 | 19.0 | 175 |
-| New York | 72.1 | 72.2 | 9.3 | 175 |
-| Sydney | 57.6 | 83.8 | 16.8 | 175 |
-| Tokyo | 78.0 | 82.1 | 23.0 | 175 |
+| Lagos | 79.3 | 85.9 | 54.5 | 178 |
+| London | 67.2 | 70.9 | 19.0 | 178 |
+| New York | 72.7 | 75.3 | 10.0 | 178 |
+| Sydney | 58.3 | 80.6 | 5.1 | 178 |
+| Tokyo | 77.2 | 82.8 | 23.0 | 178 |
 
 ---
 
@@ -30,6 +30,7 @@ _Generated: 2026-08-31 16:02 UTC_
 
 | Run At (UTC) | Status | Rows Loaded | Duration (s) |
 |---|:---:|:---:|:---:|
+| 2026-08-31T16:02:51 | ✅ success | 120 | 3.4 |
 | 2026-08-30T13:43:19 | ✅ success | 120 | 2.2 |
 | 2026-08-29T13:45:27 | ✅ success | 120 | 2.5 |
 | 2026-08-28T20:07:42 | ✅ success | 120 | 3.2 |
@@ -39,4 +40,3 @@ _Generated: 2026-08-31 16:02 UTC_
 | 2026-08-24T08:54:29 | ✅ success | 120 | 2.6 |
 | 2026-08-23T08:36:41 | ✅ success | 120 | 2.1 |
 | 2026-08-22T08:36:22 | ✅ success | 120 | 3.5 |
-| 2026-08-21T08:48:33 | ✅ success | 120 | 3.2 |
